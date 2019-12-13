@@ -169,6 +169,10 @@ function ent:IsReversing()
 end
 
 local stayon = GetConVar("photon_emv_stayon")
+hook.Add("InitPostEntity", "Photon.SVMeta.FetchEMVStayon", function()
+	stayon = GetConVar("photon_emv_stayon")
+end)
+
 function ent:GetPhotonLEStayOn()
 	return stayon:GetBool() or self:GetNW2Bool("PhotonLEStayOn", false)
 end
