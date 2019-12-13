@@ -7,21 +7,37 @@
 
 local ent = FindMetaTable("Vehicle")
 
+--- A generic combined getter/setter for NW2Vars.
+-- @string key Data key for the data to be assigned to.
+-- @string type Type of data to be set.
+-- @param default[opt] Value to be returned if the entity is invalid.
+-- @param val[opt] Value to set. Nil for no change.
+-- @return Mixed return data.
+function ent:PhotonData(key, type, default, val)
+	if not IsValid(self) then return default end
+	if isstring(key) then
+		key = "PhotonLE." .. key
 	end
 
-	-- if car is braking
-	function ent:CAR_Braking( val )
-		if not IsValid( self ) then return false end
-		if (val!=nil) then self:SetNW2Bool( "PhotonLE.CAR_BRAKING", val ) end
-		return self:GetNW2Bool( "PhotonLE.CAR_BRAKING" )
-
+	if val ~= nil then
+		self["SetNW2" .. type](self, key, val)
 	end
+	return self["GetNW2" .. type](self, key)
+end
 
-	-- car reversing
-	function ent:CAR_Reversing( val )
-		if not IsValid( self ) then return false end
-		if (val!=nil) then self:SetNW2Bool( "PhotonLE.CAR_REVERSING", val ) end
-		return self:GetNW2Bool( "PhotonLE.CAR_REVERSING" )
+--- Combined getter/setter for photon booleans.
+-- @string key Key to fetch/set boolean on.
+-- @param[opt] val Value to set.
+function ent:PhotonBool(key, val)
+	return self:PhotonData(key, "Bool", false, val)
+end
+
+--- Combined getter/setter for photon integers.
+-- @string key Key to fetch/set boolean on.
+-- @param[opt] val Value to set.
+function ent:PhotonInteger(key, val)
+	return self:PhotonData(key, "Int", 0, val)
+end
 
 	end
 
