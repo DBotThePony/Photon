@@ -209,7 +209,7 @@ function Photon.Net:Signal( ply )
 	if not ply:InVehicle() or not ply:GetVehicle():Photon() then return end
 	local car = ply:GetVehicle()
 	local signal = net.ReadInt(3)
-	if not signal == CAR_TURNING_LEFT or not signal == CAR_TURNING_RIGHT or not signal == CAR_HAZARD then return false end
+	if not signal == CAR_BLINKER_LEFT or not signal == CAR_BLINKER_RIGHT or not signal == CAR_BLINKER_HAZARD then return false end
 	if signal == car:CAR_Signal() then car:CAR_StopSignals() return end
 	car:CAR_Signal( signal )
 end
