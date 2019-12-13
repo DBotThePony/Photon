@@ -39,19 +39,33 @@ function ent:PhotonInteger(key, val)
 	return self:PhotonData(key, "Int", 0, val)
 end
 
-	end
+-- Getter/Setter for Vehicle Headlights
+-- @bool[opt] val New headlight state.
+-- @treturn bool Current headlight state.
+function ent:CAR_Headlights(val)
+	return self:PhotonBool("CAR_HEADLIGHTS", val)
+end
 
-	function ent:CAR_Running( val )
-		if not IsValid( self ) then return false end
-		if (val!=nil) then self:SetNW2Bool( "PhotonLE.CAR_RUNNING", val ) end
-		return self:GetNW2Bool( "PhotonLE.CAR_RUNNING" )
+-- Getter/Setter for break state
+-- @bool[opt] val New headlight state.
+-- @treturn bool Current headlight state.
+function ent:CAR_Braking(val)
+	return self:PhotonBool("CAR_BRAKING", val)
+end
 
-	end
+-- Getter/Setter for reverse state
+-- @bool[opt] val New reverse state.
+-- @treturn bool Current reverse state.
+function ent:CAR_Reversing(val)
+	return self:PhotonBool("CAR_REVERSING", val)
+end
 
-	function ent:CAR_Signal( val )
-		if not IsValid( self ) then return 0 end
-		if (val!=nil) then self:SetNW2Int( "PhotonLE.CAR_BLINKER", val ) end
-		return self:GetNW2Int( "PhotonLE.CAR_BLINKER" )
+-- Getter/Setter for running lights state
+-- @bool[opt] val New running lights state.
+-- @treturn bool Current running lights state.
+function ent:CAR_Running(val)
+	return self:PhotonBool("CAR_RUNNING", val)
+end
 
 	end
 
