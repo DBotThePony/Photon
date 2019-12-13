@@ -1,10 +1,11 @@
+--[[-- Serverside Vehicle Metafunctions
+@copyright Photon Team
+@release v74 Hot Sulphur Springs
+@author Photon Team
+@module ent
+--]]--
 
-function Photon:SetupCar( ent, index )
-	// whether car headlights are on or off
-	function ent:CAR_Headlights( val )
-		if not IsValid( self ) then return false end
-		if (val!=nil) then self:SetNW2Bool( "PhotonLE.CAR_HEADLIGHTS", val ) end
-		return self:GetNW2Bool("PhotonLE.CAR_HEADLIGHTS")
+local ent = FindMetaTable("Vehicle")
 
 	end
 
