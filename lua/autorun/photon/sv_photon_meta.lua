@@ -152,7 +152,7 @@ function ent:IsReversing()
 
 	-- Check we're actually moving backwards.
 	local sum = vel * self:GetForward()
-	if sum.x < 0 or sum.y < 0 then
+	if sum.x > 0 or sum.y > 0 then
 		return false
 	end
 
@@ -160,7 +160,7 @@ function ent:IsReversing()
 		return false
 	end
 
-	if self:Photon_AdjustedSpeed() <= 5 then
+	if self:Photon_AdjustedSpeed() <= 2 then
 		return false
 	end
 
