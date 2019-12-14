@@ -1,27 +1,25 @@
 
 function Photon:RunningScan()
-	for k,v in pairs( self:AllVehicles() ) do
-		if IsValid( v ) and IsValid( v:GetDriver() ) and v:GetDriver():IsPlayer() then
+	for _, v in ipairs(self:AllVehicles()) do
+		local hasDriver = IsValid(v:GetDriver())
+		local stayOn = v:GetPhotonLEStayOn()
+		if IsValid(v) then
+			if (hasDriver or stayOn) then
+				if v:HasPhotonELS() and v.ELS.Blackout then
+					v:CAR_Running(false)
+				else
+					v:CAR_Running(true)
+				end
 
-			if v:HasPhotonELS() and v.ELS.Blackout then 
-				v:CAR_Running( false )
-			else
-				v:CAR_Running( true )
-			end
-
-			if v:IsBraking() then v:CAR_Braking( true ) else v:CAR_Braking( false ) end
-			if v:IsReversing() then v:CAR_Reversing( true ) else v:CAR_Reversing( false ) end
-
-			v.LastSpeed = v:Photon_GetSpeed()
-
-		elseif IsValid( v) and not v:GetDriver():IsValid() and not v:GetDriver():IsPlayer() and not v:GetPhotonLEStayOn() then
-			v:CAR_Running( false )
-			v:CAR_Braking( false )
-			v:CAR_Reversing( false )
-			if v:HasPhotonELS() then
-				if v:ELS_Siren() then v:ELS_SirenOff() end
-				v:ELS_Horn( false )
-				v:ELS_ManualSiren( false )
+				v:CAR_Braking(hasDriver and v:IsBraking())
+				v:CAR_Reversing(hasDriver and v:IsReversing())
+				v.LastSpeed = v:Photon_GetSpeed()
+			elseif not hasDriver and not stayOn then
+				if v:HasPhotonELS() then
+					if v:ELS_Siren() then v:ELS_SirenOff() end
+					v:ELS_Horn(false)
+					v:ELS_ManualSiren(false)
+				end
 			end
 		end
 	end
@@ -59,13 +57,13 @@ concommand.Add( "photon_mat", function( ply, cmd, args )
 	PrintTable( veh:GetMaterials() )
 end)
 
-hook.Add( "Photon.EntityChangedSkin", "Photon.LiverySkinCheck", function( ent, skin ) 
+hook.Add( "Photon.EntityChangedSkin", "Photon.LiverySkinCheck", function( ent, skin )
 	if IsValid( ent ) and ent:IsEMV() and ent:Photon_GetLiveryID() != "" and skin > 0 then
 		ent:Photon_SetLiveryId("")
 	end
 end )
 
-hook.Add( "Photon.CanPlayerModify", "Photon.DefaultModifyCheck", function( ply, ent ) 
+hook.Add( "Photon.CanPlayerModify", "Photon.DefaultModifyCheck", function( ply, ent )
 	if not IsValid( ent ) then return false end
 	local isDriver = ( ply:GetVehicle() == ent )
 	local isOwner = ( ent:GetOwner() == ply )
@@ -89,11 +87,11 @@ local function PhotonUnitNumberScan()
 		end
 	end
 end
-timer.Create( "Photon.UnitNumberScan", 2, 0, function() 
+timer.Create( "Photon.UnitNumberScan", 2, 0, function()
 	PhotonUnitNumberScan()
 end )
 
-hook.Add( "PlayerSpawnedVehicle", "Photon.PlayerVehicleSpawn", function( ply, ent ) 
+hook.Add( "PlayerSpawnedVehicle", "Photon.PlayerVehicleSpawn", function( ply, ent )
 	ent.PhotonVehicleSpawner = ply
 end)
 
