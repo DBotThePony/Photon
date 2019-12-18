@@ -112,6 +112,7 @@ function ent:CAR_StopSignals()
 end
 
 --- Check if a given entity is currently breaking.
+-- @treturn bool If the vehicle is breaking.
 function ent:IsBraking()
 	if not IsValid(self) then return false end
 	if self:IsReversing() then return false end
@@ -140,6 +141,7 @@ function ent:IsBraking()
 end
 
 -- Check if we're currently reversing.
+-- @treturn bool If the vehicle is reversing.
 function ent:IsReversing()
 	if not IsValid(self) then return false end
 
