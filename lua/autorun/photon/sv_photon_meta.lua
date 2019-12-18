@@ -193,10 +193,14 @@ function ent:Photon_WheelEnabled()
 	return istable(Photon.Vehicles.WheelPositions[self.VehicleName]) and istable(Photon.Vehicles.WheelOptions[self.VehicleName])
 end
 
-function ent:Photon_PlayerSetWheelIndex( val )
+--- Emulate a player setting a new wheel index.
+-- @int val New index.
+function ent:Photon_PlayerSetWheelIndex(val)
 	if not self:Photon_WheelEnabled() then return false end
-	local max = #Photon.Vehicles.WheelOptions[ self.VehicleName ]
+
+	local max = #Photon.Vehicles.WheelOptions[self.VehicleName]
 	if val > max then val = 1 end
+
 	self:Photon_SetWheelIndex( val )
 end
 
