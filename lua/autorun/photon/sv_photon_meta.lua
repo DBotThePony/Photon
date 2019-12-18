@@ -204,10 +204,11 @@ function ent:Photon_PlayerSetWheelIndex(val)
 	self:Photon_SetWheelIndex( val )
 end
 
-function ent:Photon_SetWheelIndex( val )
-	if not IsValid( self ) then return 0 end
-	if (val ~= nil) then self:SetNW2Int( "PhotonLE.CAR_WHEEL_OPTION", val ) end
-	return self:GetNW2Int( "PhotonLE.CAR_WHEEL_OPTION" )
+--- Getter/setter for the wheel index.
+-- @int val New index.
+-- @treturn int Selected wheel index.
+function ent:Photon_SetWheelIndex(val)
+	return self:PhotonInteger("CAR_WHEEL_OPTION", val)
 end
 
 function Photon:SetupCar(car, index)
