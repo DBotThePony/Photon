@@ -211,6 +211,9 @@ function ent:Photon_SetWheelIndex(val)
 	return self:PhotonInteger("CAR_WHEEL_OPTION", val)
 end
 
+--- Set up a car so it's ready for Photon.
+-- @ent car Vehicle to setup.
+-- @string index Unused.
 function Photon:SetupCar(car, index)
 	car:CAR_Headlights(false)
 	car:CAR_Braking(false)
