@@ -175,10 +175,14 @@ hook.Add("InitPostEntity", "Photon.SVMeta.FetchEMVStayon", function()
 	stayon = GetConVar("photon_emv_stayon")
 end)
 
+--- If the vehicle's lighting is forced to stay on.
+-- @treturn bool If the lighting is forced.
 function ent:GetPhotonLEStayOn()
 	return stayon:GetBool() or self:GetNW2Bool("PhotonLEStayOn", false)
 end
 
+--- Set the lighting force status.
+-- @bool val Force status.
 function ent:SetPhotonLEStayOn(val)
 	return self:SetNW2Bool("PhotonLEStayOn", val)
 end
