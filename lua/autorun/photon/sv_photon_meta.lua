@@ -187,8 +187,10 @@ function ent:SetPhotonLEStayOn(val)
 	return self:SetNW2Bool("PhotonLEStayOn", val)
 end
 
+--- Check if this vehicle has customizable wheels.
+-- @treturn bool If the vehicle has wheels.
 function ent:Photon_WheelEnabled()
-	return istable( Photon.Vehicles.WheelPositions[ self.VehicleName ] ) and istable( Photon.Vehicles.WheelOptions[ self.VehicleName ] )
+	return istable(Photon.Vehicles.WheelPositions[self.VehicleName]) and istable(Photon.Vehicles.WheelOptions[self.VehicleName])
 end
 
 function ent:Photon_PlayerSetWheelIndex( val )
