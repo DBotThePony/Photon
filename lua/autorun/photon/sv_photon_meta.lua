@@ -28,6 +28,7 @@ end
 --- Combined getter/setter for photon booleans.
 -- @string key Key to fetch/set boolean on.
 -- @param[opt] val Value to set.
+-- @treturn bool Current state.
 function ent:PhotonBool(key, val)
 	return self:PhotonData(key, "Bool", false, val)
 end
@@ -35,6 +36,7 @@ end
 --- Combined getter/setter for photon integers.
 -- @string key Key to fetch/set boolean on.
 -- @param[opt] val Value to set.
+-- @treturn bool Current state.
 function ent:PhotonInteger(key, val)
 	return self:PhotonData(key, "Int", 0, val)
 end
